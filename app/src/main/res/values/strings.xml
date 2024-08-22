@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TaskFlow</string>
+    <string name="add_task">Add Task</string>
+    <string name="app_logo">TaskFlow Logo</string>
+    <string name="notification_channel_name">TaskFlow Notifications</string>
+    <string name="notification_channel_description">Notifications for TaskFlow reminders</string>
+</resources>
