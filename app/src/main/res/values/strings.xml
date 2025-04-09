@@ -4,4 +4,5 @@
     <string name="app_logo">TaskFlow Logo</string>
     <string name="notification_channel_name">TaskFlow Notifications</string>
     <string name="notification_channel_description">Notifications for TaskFlow reminders</string>
+    <string name="add_list">Add List</string>
 </resources>

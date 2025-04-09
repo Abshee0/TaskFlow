@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
@@ -13,20 +14,20 @@ import com.example.taskflow.R
 
 class ReminderBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        val taskName = intent.getStringExtra("task_name")
+        val taskName = intent.getStringExtra("task_name") ?: return
 
         // Check if POST_NOTIFICATIONS permission is granted
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
             // Permission is granted, proceed with the notification
             sendNotification(context, taskName)
         } else {
-            // Permission is not granted, you could log this or handle it in another way
-            // For example, you could show a toast or log an error.
-            // Toast.makeText(context, "Notification permission not granted", Toast.LENGTH_SHORT).show()
+            // If permission is not granted, we can request it or log the issue.
+            Toast.makeText(context, "Notification permission not granted", Toast.LENGTH_SHORT).show()
+            // Optionally request permission from the user if needed (this depends on your app's structure)
         }
     }
 
-    private fun sendNotification(context: Context, taskName: String?) {
+    private fun sendNotification(context: Context, taskName: String) {
         try {
             val notificationIntent = Intent(context, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(
@@ -45,10 +46,12 @@ class ReminderBroadcastReceiver : BroadcastReceiver() {
                 .setAutoCancel(true)
 
             val notificationManager = NotificationManagerCompat.from(context)
-            notificationManager.notify(1001, builder.build())
-        } catch (e: SecurityException) {
+            notificationManager.notify(1001, builder.build()) // You can adjust notification ID if needed
+        } catch (e: Exception) {
             // Handle the exception, e.g., log it or show a message to the user
             e.printStackTrace()
+            // Optionally log the error or show a toast to notify the user
+            Toast.makeText(context, "Error sending notification", Toast.LENGTH_SHORT).show()
         }
     }
 }

@@ -11,5 +11,6 @@ data class TaskEntity(
     val reminderTime: Long?,
     val earlyReminderTime: Long?,
     val dueDate: Long?,
-    val isCompleted: Boolean
+    val isCompleted: Boolean,
+    val taskList: String
 )

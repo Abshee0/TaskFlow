@@ -21,4 +21,7 @@ interface TaskDao {
 
     @Query("DELETE FROM tasks WHERE id = :taskId")
     suspend fun deleteTask(taskId: Int)
+
+    @Query("SELECT * FROM tasks WHERE taskList = :listName")
+    fun getTasksByList(listName: String): Flow<List<TaskEntity>>
 }
